@@ -1,0 +1,282 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../paper-behaviors/paper-button-behavior.html">
+<link rel="import" href="../paper-ripple/paper-ripple.html">
+<link rel="import" href="../paper-fab/paper-fab.html">
+<link rel="import" href="../iron-icons/av-icons.html">
+<link rel="import" href="../paper-progress/paper-progress.html">
+<link rel="import" href="../iron-pages/iron-pages.html">
+<link rel="import" href="../paper-dialog/paper-dialog.html">
+<link rel="import" href="../neon-animation/neon-animation.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="the-icon.html">
+
+<dom-module id="the-app">
+
+  <style>
+
+  the-icon{
+    padding: 8px; 
+  }
+
+  #test{
+    position: absolute;
+    width: 596px;
+    height: 298px;
+    left:50%;
+    top:50%;
+    margin:-149px 0 0 -298px;
+  }
+
+  .buttons{
+    position: absolute;
+    margin: 40px;
+    bottom: 0;
+    right: 0;
+  }
+
+  paper-fab{
+    background-color: #3fca8e;
+    --paper-fab-keyboard-focus-background: #3fca8e;
+  }
+
+  paper-fab:last-child{
+    background-color: #181818;
+  }
+
+  paper-progress{
+    position: absolute;
+    width: 100%;
+    padding: 0;
+    --paper-progress-active-color: #3fca8e;
+  }
+
+  #animated{
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    width: 30%;
+    overflow: hidden;
+  }
+
+  paper-button{
+    color: #3fca8e;
+    font-weight: 500;
+  }
+
+  </style>
+
+  <template>
+    <paper-progress value="[[position]]"></paper-progress>
+    <div id="test" class="layout vertical">
+      <iron-pages selected="[[currentPage]]">
+        <section>
+          <div class="layout horizontal">
+            <template is="dom-repeat" items="{{elements1}}">
+              <the-icon identifier="{{item.id}}" sample="{{item.sample}}"></the-icon>
+            </template>
+          </div>
+          <div class="layout horizontal">
+            <template is="dom-repeat" items="{{elements2}}">
+              <the-icon identifier="{{item.id}}" sample="{{item.sample}}"></the-icon>
+            </template>
+          </div>
+        </section>
+        <section id="asd">
+          <div class="layout horizontal">
+            <template is="dom-repeat" items="{{elements3}}">
+              <the-icon identifier="{{item.id}}" sample="{{item.sample}}"></the-icon>
+            </template>
+          </div>
+          <div class="layout horizontal">
+            <template is="dom-repeat" items="{{elements4}}">
+              <the-icon identifier="{{item.id}}" sample="{{item.sample}}"></the-icon>
+            </template>
+          </div>
+        </section>
+      </iron-pages>
+    </div>
+    <iron-a11y-keys keys="a s d f left right down up w" target="[[target]]" on-keys-pressed="_updatePressed"></iron-a11y-keys>
+    <div class="buttons">
+      <paper-fab icon="av:play-arrow" on-tap="_playInstrumental"></paper-fab>
+      <paper-fab icon="av:stop" on-tap="_stopInstrumental"></paper-fab>
+    </div>
+
+    <paper-dialog id="animated" with-backdrop entry-animation="fade-in-animation" exit-animation="fade-out-animation" with-backdrop>
+      <h2>DaftKeys</h2>
+      <p>Conecta un Makey Makey y empieza a jugar en esta consola de Daft Punk. Si no dispones de un Makey Makey puedes utilizar las teclas A S D F y las teclas de dirección. Para alternar entre los samples presiona W.
+
+      ¡Que te diviertas!</p>
+      <div class="layout horizontal">
+        <div class="flex"></div>
+        <paper-button dialog-dismiss>Empecemos</paper-button>
+      </div>
+    </paper-dialog>
+  </template>
+
+  <script>
+  
+    Polymer({
+
+      is: 'the-app',
+
+      properties: {
+        sample: {
+          type: String
+        },
+        identifier: {
+          type: String
+        },
+        position:{
+           type: Number,
+           value: 0
+        },
+        currentPage:{
+           type: Number,
+           value: 0
+        },
+        pageChanged:{
+           type: Boolean,
+           value: false
+        },
+        target: {
+          type: Object,
+          value: function() {
+            return document.body;
+          }
+        }
+      },
+
+      attached: function(){
+        elements = document.getElementsByTagName("the-icon");
+
+        var elements1 = [
+          {id: '0', sample: 'WORK IT '},
+          {id: '1', sample: 'MAKE IT'},
+          {id: '2', sample: 'DO IT'},          
+          {id: '3', sample: 'MAKES US'}
+        ];
+        this.elements1 = elements1;
+
+        var elements2 = [
+          {id: '4', sample: 'HARDER'},     
+          {id: '5', sample: 'BETTER'},
+          {id: '6', sample: 'FASTER'},
+          {id: '7', sample: 'STRONGER'}
+        ];
+        this.elements2 = elements2;
+
+        var elements3 = [
+          {id: '8', sample: 'MORE THAN'}, 
+          {id: '9', sample: 'HOUR'},
+          {id: '10', sample: 'OUR'},   
+          {id: '11', sample: 'NEVER'}
+        ];
+        this.elements3 = elements3;
+
+        var elements4 = [
+          {id: '12', sample: 'EVER'},
+          {id: '13', sample: 'AFTER'},          
+          {id: '14', sample: 'WORK IS'},
+          {id: '15', sample: 'OVER'}          
+        ];
+        this.elements4 = elements4;
+
+        this.$.animated.open();
+      },
+
+      playSample: function() {
+        songList[this.identifier].stop();
+        songList[this.identifier].play();      
+      },
+
+      _updatePressed: function(event) {
+        switch(event.detail.combo){
+          case "a":            
+            if(this.pageChanged){
+              elements[8].playSample();
+            }else{
+              elements[0].playSample();
+            }
+          break;
+          case "s":
+            if(this.pageChanged){
+              elements[9].playSample();
+            }else{
+              elements[1].playSample();
+            }
+          break;
+          case "d":
+            if(this.pageChanged){
+              elements[10].playSample();
+            }else{
+              elements[2].playSample();
+            }
+          break;
+          case "f":
+            if(this.pageChanged){
+              elements[11].playSample();
+            }else{
+              elements[3].playSample();
+            }
+          break;
+          case "up":
+            if(this.pageChanged){
+              elements[12].playSample();
+            }else{
+              elements[4].playSample();
+            }
+          break;
+          case "left":
+            if(this.pageChanged){
+              elements[13].playSample();
+            }else{
+              elements[5].playSample();
+            }
+          break;
+          case "down":
+            if(this.pageChanged){
+              elements[14].playSample();
+            }else{
+              elements[6].playSample();
+            }
+          break;
+          case "right":
+            if(this.pageChanged){
+              elements[15].playSample();
+            }else{
+              elements[7].playSample();
+            }
+          break;
+          case "w":  
+            this.pageChanged = !this.pageChanged;
+            if(this.pageChanged){
+              this.currentPage = 1;
+            }else{
+              this.currentPage = 0;
+            }
+          break;
+        }
+      },
+
+      _playInstrumental: function (argument){
+        songList[16].play();
+        setInterval(this.updateClock.bind(this), 500);     
+      },
+
+      _stopInstrumental: function (argument){
+        songList[16].stop();   
+      },
+
+      updateClock: function(){
+        this.position = (100/217.152) * songList[16].seek();
+      }
+    });
+
+    
+
+  </script>
+
+</dom-module>

@@ -1,0 +1,205 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../paper-behaviors/paper-button-behavior.html">
+<link rel="import" href="../paper-ripple/paper-ripple.html">
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-styles/paper-styles.html">
+
+<script src="howler.min.js"></script>
+
+<dom-module id="the-icon">
+
+  <style>
+   :host {
+      display: inline-block;
+      position: relative;
+      color: #fff;
+      width: 130px;
+      height: 130px;
+
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    :host #ink {
+    }
+
+    .test1{
+      text-align: center;
+      border-radius: 50%;
+      background-color: #161616;
+      height: 100%;
+      width: 100%;
+    }
+    .test2{
+      position: relative;
+      top: 45%;
+    }
+  </style>
+
+  <template>
+    <paper-ripple id="ink" class="circle" center></paper-ripple>
+    <div class="flex test1">
+      <div class="test2">[[sample]]</div>
+    </div>    
+  </template>
+
+  <script>
+
+    var instru = new Howl({
+      src: ['samples/instru.mp3'],
+      autoplay: false,
+    });
+
+    var after = new Howl({
+      src: ['samples/After1.mp3'],
+      autoplay: false,
+    });
+    var better = new Howl({
+      src: ['samples/Better1.mp3'],
+      autoplay: false,
+    });
+    var doit = new Howl({
+      src: ['samples/DoIt1.mp3'],
+      autoplay: false,
+    });
+    var ever = new Howl({
+      src: ['samples/Ever1.mp3'],
+      autoplay: false,
+    });
+    var faster = new Howl({
+      src: ['samples/Faster1.mp3'],
+      autoplay: false,
+    });
+    var harder = new Howl({
+      src: ['samples/Harder1.mp3'],
+      autoplay: false,
+    });
+    var hour = new Howl({
+      src: ['samples/Hour1.mp3'],
+      autoplay: false,
+    });
+    var makeit = new Howl({
+      src: ['samples/MakeIt1.mp3'],
+      autoplay: false,
+    });
+    var makesus = new Howl({
+      src: ['samples/MakesUs1.mp3'],
+      autoplay: false,
+    });
+    var morethan = new Howl({
+      src: ['samples/MoreThan1.mp3'],
+      autoplay: false,
+    });
+    var never = new Howl({
+      src: ['samples/Never1.mp3'],
+      autoplay: false,
+    });
+    var our = new Howl({
+      src: ['samples/Our1.mp3'],
+      autoplay: false,
+    });  
+    var over = new Howl({
+      src: ['samples/Over1.mp3'],
+      autoplay: false,
+    });
+    var stronger = new Howl({
+      src: ['samples/Stronger1.mp3'],
+      autoplay: false,
+    });
+    var workis = new Howl({
+      src: ['samples/WorkIs1.mp3'],
+      autoplay: false,
+    }); 
+    var workit = new Howl({
+      src: ['samples/WorkIt1.mp3'],
+      autoplay: false,
+    });
+
+    var songList = [];
+    songList.push(workit,makeit,doit,makesus,harder,better,faster,stronger,morethan,hour,our,never,ever,after,workis,over, instru);
+  
+    Polymer({
+
+      is: 'the-icon',
+
+      properties: {
+        sample: {
+          type: String
+        },
+        identifier: {
+          type: String
+        }
+      },
+
+      attached:function() {
+        switch(this.identifier){
+          case "0":
+            this.$.ink.style.color = '#3ffa8e';
+          break;
+          case "1":
+            this.$.ink.style.color = '#3ffa8e';
+          break;
+          case "2":
+            this.$.ink.style.color = '#3ffa8e';
+          break;
+          case "3":
+            this.$.ink.style.color = '#3ffa8e';
+          break;
+          case "4":
+            this.$.ink.style.color = '#3fe2fa';
+          break;
+          case "5":
+            this.$.ink.style.color = '#3fe2fa';
+          break;
+          case "6":
+            this.$.ink.style.color = '#3fe2fa';
+          break;
+          case "7":
+            this.$.ink.style.color = '#3fe2fa';
+          break;
+          case "8":
+            this.$.ink.style.color = '#fad03f';
+          break;
+          case "9":
+            this.$.ink.style.color = '#fad03f';
+          break;
+          case "10":
+            this.$.ink.style.color = '#fad03f';
+          break;
+          case "11":
+            this.$.ink.style.color = '#fad03f';
+          break;
+          case "12":
+            this.$.ink.style.color = '#fa3f7e';
+          break;
+          case "13":
+            this.$.ink.style.color = '#fa3f7e';
+          break;
+          case "14":
+            this.$.ink.style.color = '#fa3f7e';
+          break;
+          case "15":
+            this.$.ink.style.color = '#fa3f7e';
+          break;
+        }
+      },
+
+      playSample: function() {
+        this.$.ink.simulatedRipple();
+        songList[this.identifier].stop();
+        songList[this.identifier].play();      
+      }
+
+    });
+
+  </script>
+
+</dom-module>
