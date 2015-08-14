@@ -262,7 +262,7 @@
       },
 
       _playInstrumental: function (argument){
-        songList[16].position=135;
+        songList[16].seek(135);
         songList[16].play();
         setInterval(this.updateClock.bind(this), 500);     
       },
