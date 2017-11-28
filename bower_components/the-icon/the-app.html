@@ -18,7 +18,7 @@
   <style>
 
   the-icon{
-    padding: 8px; 
+    padding: 8px;
   }
 
   #test{
@@ -106,9 +106,8 @@
 
     <paper-dialog id="animated" with-backdrop entry-animation="fade-in-animation" exit-animation="fade-out-animation" with-backdrop>
       <h2>DaftKeys</h2>
-      <p>Conecta un Makey Makey y empieza a jugar en esta consola de Daft Punk. Si no dispones de un Makey Makey puedes utilizar las teclas A S D F y las teclas de dirección. Para alternar entre los samples presiona W.
-
-      ¡Que te diviertas!</p>
+      <p>Conecta un Makey Makey a las entradas W, A, S, D, F y las flechas de dirección. Dale play y empieza a jugar en esta consola de Daft Punk. Existen 16 sonidos en total, pero solo 8 pueden usarse a la vez. Para alternar los sonidos, presiona W.  Si no tienes Makey Makey, puedes usar tu teclado.</p>
+      <p>¡Que te diviertas!</p>
       <div class="layout horizontal">
         <div class="flex"></div>
         <paper-button dialog-dismiss>Empecemos</paper-button>
@@ -117,7 +116,7 @@
   </template>
 
   <script>
-  
+
     Polymer({
 
       is: 'the-app',
@@ -155,13 +154,13 @@
         var elements1 = [
           {id: '0', sample: 'WORK IT '},
           {id: '1', sample: 'MAKE IT'},
-          {id: '2', sample: 'DO IT'},          
+          {id: '2', sample: 'DO IT'},
           {id: '3', sample: 'MAKES US'}
         ];
         this.elements1 = elements1;
 
         var elements2 = [
-          {id: '4', sample: 'HARDER'},     
+          {id: '4', sample: 'HARDER'},
           {id: '5', sample: 'BETTER'},
           {id: '6', sample: 'FASTER'},
           {id: '7', sample: 'STRONGER'}
@@ -169,18 +168,18 @@
         this.elements2 = elements2;
 
         var elements3 = [
-          {id: '8', sample: 'MORE THAN'}, 
+          {id: '8', sample: 'MORE THAN'},
           {id: '9', sample: 'HOUR'},
-          {id: '10', sample: 'OUR'},   
+          {id: '10', sample: 'OUR'},
           {id: '11', sample: 'NEVER'}
         ];
         this.elements3 = elements3;
 
         var elements4 = [
           {id: '12', sample: 'EVER'},
-          {id: '13', sample: 'AFTER'},          
+          {id: '13', sample: 'AFTER'},
           {id: '14', sample: 'WORK IS'},
-          {id: '15', sample: 'OVER'}          
+          {id: '15', sample: 'OVER'}
         ];
         this.elements4 = elements4;
 
@@ -189,12 +188,12 @@
 
       playSample: function() {
         songList[this.identifier].stop();
-        songList[this.identifier].play();      
+        songList[this.identifier].play();
       },
 
       _updatePressed: function(event) {
         switch(event.detail.combo){
-          case "a":            
+          case "a":
             if(this.pageChanged){
               elements[8].playSample();
             }else{
@@ -250,7 +249,7 @@
               elements[7].playSample();
             }
           break;
-          case "w":  
+          case "w":
             this.pageChanged = !this.pageChanged;
             if(this.pageChanged){
               this.currentPage = 1;
@@ -262,13 +261,16 @@
       },
 
       _playInstrumental: function (argument){
-        songList[16].seek(135);
-        songList[16].play();
-        setInterval(this.updateClock.bind(this), 500);     
+        if (!this.playing) {
+          songList[16].play();
+          setInterval(this.updateClock.bind(this), 500);
+          this.playing = true;
+        }
       },
 
       _stopInstrumental: function (argument){
-        songList[16].stop();   
+        songList[16].stop();
+        this.playing = false;
       },
 
       updateClock: function(){
@@ -276,7 +278,7 @@
       }
     });
 
-    
+
 
   </script>
 
