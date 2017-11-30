@@ -66,6 +66,18 @@
     font-weight: 500;
   }
 
+  #portfolio_link{
+    text-decoration: none;
+    color: inherit;
+  }
+
+  #logo{
+    width: 38px;
+    height: 38px;
+    margin-left: 20px;
+    margin-top: 20px;
+  }
+
   </style>
 
   <template>
@@ -103,6 +115,10 @@
       <paper-fab icon="av:play-arrow" on-tap="_playInstrumental"></paper-fab>
       <paper-fab icon="av:stop" on-tap="_stopInstrumental"></paper-fab>
     </div>
+
+    <a id="portfolio_link" href="https://alejost848.github.io/alejost848/">
+      <iron-icon id="logo" icon="alejost-icons:logo"></iron-icon>
+    </a>
 
     <paper-dialog id="animated" with-backdrop entry-animation="fade-in-animation" exit-animation="fade-out-animation" with-backdrop>
       <h2>DaftKeys</h2>
